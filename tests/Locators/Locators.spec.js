@@ -1,5 +1,5 @@
 //getByRole
-import { test, expect } from "@playwright/test"
+import { test, expect, defineConfig } from "@playwright/test"
 test("Testing locators", async ({ page }) => {
     await page.goto("https://testautomationpractice.blogspot.com/p/playwrightpractice.html")
     await expect(page).toHaveTitle("Automation Testing Practice: PlaywrightPractice")
@@ -10,4 +10,41 @@ test("Testing locators", async ({ page }) => {
     await expect(page.getByRole("checkbox", { name: "Accept terms" })).toBeChecked()
     await page.getByRole("menuitem", { name: "Home" }).click()
     await expect(page.getByRole("menuitem", { name: "Home" })).toBeVisible()
+
+    //getByLabel
+    await page.getByLabel("Email Address:").fill("Deepak")
+    await page.getByLabel("password:").fill("Sharma")
+    await page.getByLabel("Your Age:").fill("29")
+    await page.getByLabel(" Standard").click()
+    await expect(page.getByLabel("Standard")).toBeChecked()
+    await expect(page.getByLabel("Express")).not.toBeChecked()
+    await page.getByLabel("Express").click()
+    await expect(page.getByLabel("Express")).toBeChecked()
+
+    //getByPlaceHolder
+    await page.getByPlaceholder("Enter your full name").fill("Deepak.sharma@gmail.com")
+    await page.getByPlaceholder("Phone number (xxx-xxx-xxxx)").fill("1234567890")
+    await page.getByPlaceholder("Type your message here...").fill("Why very kind deepak ?")
+    await page.getByPlaceholder("Search products...").fill("Camera")
+    await page.getByRole("button", { name: "Search" }).click()
+
+    //getByText
+    await expect(page.getByText("This paragraph contains some ")).toBeVisible()
+    await expect(page.getByText("List item 1", { exact: true })).toBeVisible()
+    await expect(page.getByText("List item 2 with ")).toBeVisible()
+
+
+    //getByAlt
+    await expect(page.getByAltText("logo image")).toBeVisible()
+
+    //getByTitle
+    await expect(page.getByTitle("Home page link")).toBeVisible()
+    await expect(page.getByTitle("HyperText Markup Language", { exact: true })).toBeVisible()
+    await expect(page.getByTitle("Tooltip text")).toHaveText("This text has a tooltip")
+
+    //getByTestId
+    await expect(page.getByTestId("profile-name")).toHaveText("John Doe")
+    await expect(page.getByTestId("profile-email")).toHaveText("john.doe@example.com")
+
+
 })
