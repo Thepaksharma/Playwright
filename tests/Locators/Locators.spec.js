@@ -46,5 +46,15 @@ test("Testing locators", async ({ page }) => {
     await expect(page.getByTestId("profile-name")).toHaveText("John Doe")
     await expect(page.getByTestId("profile-email")).toHaveText("john.doe@example.com")
 
+    //CSS or XPATH
+    await page.locator("xpath=//button[@title='Click to save your changes']").click()
+    await expect(page.locator("css=h3[data-testid='profile-name']")).toHaveText("John Doe")
 
+    //Shadow DOM
+    await expect(page.locator("#shadow_host").getByText("Mobiles")).toHaveText("Mobiles")
+    await page.getByText("Mobiles")
+
+    //Always use CSS under shadow DOM
+    // await page.locator("#shadow_host").getByRole("link", { name: "Blog" }).click()
+    await page.locator("#shadow_host input[type='checkbox']").check()
 })
