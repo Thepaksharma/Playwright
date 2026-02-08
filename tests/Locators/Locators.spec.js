@@ -57,4 +57,19 @@ test("Testing locators", async ({ page }) => {
     //Always use CSS under shadow DOM
     // await page.locator("#shadow_host").getByRole("link", { name: "Blog" }).click()
     await page.locator("#shadow_host input[type='checkbox']").check()
+
+    //filter by text
+    await page.getByRole("listitem").filter({ hasText: "Products" }).click()
+    await page.getByRole("listitem").filter({ hasNotText: "Products" }).filter({ hasNotText: "Home" }).filter({ hasText: "Contact" }).click()
+
+    //Filter by child/descendant
+    await page.getByRole("listitem").filter({ has: page.getByRole("link", { name: "Products" }) }).click()
+    await expect(page.getByRole("listitem").filter({ has: page.getByRole("link", { name: "Products" }) })).toHaveCount(1)
+    await expect(page.getByTestId("main-navigation").filter({ has: page.getByRole("listitem") }).filter({ hasNot: page.getByRole("link", { name: "Products" }) })).toHaveCount(0)
+
+    //Matching inside a locator
+    const listItems = page.getByTestId("main-navigation").filter({ has: page.getByRole("listitem") })
+    await listItems.filter({ has: page.getByRole("link", { name: "Contact" }) })
+    await expect(listItems).toHaveCount(1)
 })
+
