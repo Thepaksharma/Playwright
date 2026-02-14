@@ -71,5 +71,8 @@ test("Testing locators", async ({ page }) => {
     const listItems = page.getByTestId("main-navigation").filter({ has: page.getByRole("listitem") })
     await listItems.filter({ has: page.getByRole("link", { name: "Contact" }) })
     await expect(listItems).toHaveCount(1)
+
+    // Matching two locators simultaneously
+    await expect(page.getByRole("button", { name: "Search" }).and(page.getByText("Search"))).toBeVisible()
 })
 
