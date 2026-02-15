@@ -74,5 +74,19 @@ test("Testing locators", async ({ page }) => {
 
     // Matching two locators simultaneously
     await expect(page.getByRole("button", { name: "Search" }).and(page.getByText("Search"))).toBeVisible()
+
+    //Matching one of the two alternative locators
+    // use locator.or() to create a locator that matches any one or both of the alternatives.
+    // If both the elements visible on the page, thne "or" locator will match both of them, possibly throwing the "strict mode violation" error. 
+    // In this case, you can use locator.first() to only match one of them.
+    const primaryButton = page.getByRole("button", { name: "Primary Action" })
+    const toggleButton = page.getByRole("button", { name: "Toggle Button" })
+    await expect(primaryButton.or(toggleButton).first()).toBeVisible()
+    if (await primaryButton.isVisible()) {
+        console.log("Primary button is visible")
+    }
+
+    //List
+    await expect(page.locator("xpath=//section[@id='text-locators']/ul").getByRole("listitem")).toHaveCount(3)
 })
 
