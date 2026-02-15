@@ -87,6 +87,6 @@ test("Testing locators", async ({ page }) => {
     }
 
     //List
-    await expect(page.locator("xpath=//section[@id='text-locators']/ul").getByRole("listitem")).toHaveCount(3)
+    await expect(page.locator("xpath=//section[@id='text-locators']/ul").getByRole("listitem")).toHaveCount(3);
 })
 
