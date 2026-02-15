@@ -88,5 +88,6 @@ test("Testing locators", async ({ page }) => {
 
     //List
     await expect(page.locator("xpath=//section[@id='text-locators']/ul").getByRole("listitem")).toHaveCount(3);
+    await expect(page.locator("css=section[id='text-locators']").getByRole("listitem")).toHaveText(["List item 1", "List item 2 with link", "Special: Unique text identifier"])
 })
 
