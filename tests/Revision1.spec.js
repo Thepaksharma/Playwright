@@ -41,4 +41,12 @@ test("Revision for Locatos and Basic actions in Playwright", async ({ page }) =>
     //shadow DOM
     await expect(page.locator("#shadow_host").getByText("Mobiles")).toBeVisible()
     await page.locator("#shadow_host").getByRole("textbox").fill("Deepak Sharma - Shadow DOM")
+
+    //Filter by hasText
+    await expect(page.locator("xpath=//section[@id='text-locators']/ul").filter({ hasText: "Special: Unique text identifier" })).toBeVisible()
+    await expect(page.locator("xpath=//section[@id='title-locators']/div/ul").filter({ hasText: "This text has a tooltip" })).toBeVisible()
+
+    //Filter by Child or Descendant
+    // await expect(page.locator("xpath=//section[@id='text-locators']")).toBeVisible()
+   await expect(page.locator("#text-locators ul").filter({has : page.locator("li",{ hasText: 'Special: Unique text identifier' })})).toBeVisible()
 })
