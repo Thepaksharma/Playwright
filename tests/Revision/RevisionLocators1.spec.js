@@ -48,5 +48,10 @@ test("Revision for Locatos and Basic actions in Playwright", async ({ page }) =>
 
     //Filter by Child or Descendant
     // await expect(page.locator("xpath=//section[@id='text-locators']")).toBeVisible()
-   await expect(page.locator("#text-locators ul").filter({has : page.locator("li",{ hasText: 'Special: Unique text identifier' })})).toBeVisible()
+    await expect(page.locator("#text-locators ul").filter({ has: page.locator("li", { hasText: 'Special: Unique text identifier' }) })).toBeVisible()
+
+    //Matching inside a locator
+    const locate = await page.locator("#text-locators ul")
+    await locate.filter({ has: page.locator("li", { hasText: "Special: Unique text identifier" }) }).click()
 })
+
