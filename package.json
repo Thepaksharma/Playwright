@@ -1,14 +1,29 @@
 {
   "name": "playwrightautomation_vsextension",
   "version": "1.0.0",
-  "description": "",
+  "description": "Industry-level Playwright automation framework",
   "main": "index.js",
-  "scripts": {},
-  "keywords": [],
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "test:ui": "npx playwright test --ui",
+    "test:smoke": "npx playwright test --grep @smoke",
+    "test:regression": "npx playwright test --grep @regression",
+    "report": "npx playwright show-report",
+    "install:browsers": "npx playwright install",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "keywords": ["playwright", "automation", "testing"],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.58.0",
-    "@types/node": "^25.0.10"
+    "@types/node": "^25.0.10",
+    "dotenv": "^16.4.5",
+    "@faker-js/faker": "^8.4.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-playwright": "^1.6.2"
   }
 }
